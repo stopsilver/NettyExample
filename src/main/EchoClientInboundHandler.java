@@ -1,4 +1,5 @@
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -9,8 +10,19 @@ import java.nio.charset.Charset;
  */
 public class EchoClientInboundHandler extends ChannelInboundHandlerAdapter {
 
-    public void channelRead0(ChannelHandlerContext ctx, Object msg) {
-        System.out.println("in channelRead0");
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) {
+        String sendMessage = "Hey Server get this!";
+
+        ByteBuf messageBuffer = Unpooled.buffer();
+        messageBuffer.writeBytes(sendMessage.getBytes());
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("Client sent: [");
+        builder.append(sendMessage);
+        builder.append("]");
+        System.out.println(builder.toString());
+        ctx.writeAndFlush(messageBuffer);
     }
 
     // 채널을 읽을 때 동작할 코드를 정의 합니다.
@@ -21,8 +33,11 @@ public class EchoClientInboundHandler extends ChannelInboundHandlerAdapter {
 //		System.out.println(bytes);
         String readMessage = ((ByteBuf) msg).toString(Charset.defaultCharset());
 
-        System.out.println("수신한 문자열 [" + readMessage + ']');
-        ctx.write(msg); // 메시지를 그대로 다시 write 합니다.
+        System.out.println("Client got: [" + readMessage + ']');
+
+        if (!readMessage.equals("You are connected to Server")) {
+            ctx.write("return from client: " + msg);
+        }
     }
 
     // 채널 읽는 것을 완료했을 때 동작할 코드를 정의 합니다.

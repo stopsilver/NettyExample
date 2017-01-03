@@ -23,9 +23,9 @@ public final class EchoClient {
 					ChannelPipeline p = ch.pipeline();
 //					p.addLast(new LengthFieldBasedFrameDecoder(16, 0, 2, 0, 6));
 //					p.addLast("lengthFieldBasedFrameDecoder",
-//							new LengthFieldBasedFrameDecoder(ByteOrder.LITTLE_ENDIAN, Integer.MAX_VALUE, 9, 9, 0, 9, true));
-					p.addLast(new EchoClientInboundHandler());
 					p.addLast(new EchoClientOutboundHandler());
+					p.addLast(new EchoClientInboundHandler());
+//							new LengthFieldBasedFrameDecoder(ByteOrder.LITTLE_ENDIAN, Integer.MAX_VALUE, 9, 9, 0, 9, true));
 //					p.addLast("lengthFieldBasedFrameDecoder",
 //							new LengthFieldBasedFrameDecoder(ByteOrder.LITTLE_ENDIAN, 30, 9, 9, 0, 9, true));
 

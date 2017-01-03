@@ -28,8 +28,8 @@ public class EchoServer {
 //					p.addLast("frameDecoder",
 //							new LengthFieldBasedFrameDecoder(ByteOrder.LITTLE_ENDIAN, Integer.MAX_VALUE, 0, 1, 0, 1, true));
 
-					p.addLast(new EchoServerInboundHandler());
 					p.addLast(new EchoServerOutboundHandler());
+					p.addLast(new EchoServerInboundHandler());
 //					p.addLast("lengthFieldBasedFrameDecoder",
 //							new LengthFieldBasedFrameDecoder(ByteOrder.LITTLE_ENDIAN, 30, 9, 9, 0, 9, true));
 					System.out.println("line 33");

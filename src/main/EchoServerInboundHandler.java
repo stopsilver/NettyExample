@@ -16,19 +16,6 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
 
         ByteBuf messageBuffer = Unpooled.buffer();
 
-//        byte lengthbyte = (byte) sendMessage.length();
-//
-//        byte[] body = sendMessage.getBytes();
-//        byte[] header = new byte[]{lengthbyte};
-//
-//
-//        byte[] combined = new byte[header.length + body.length];
-//
-//        for (int i = 0; i < combined.length; ++i)
-//        {
-//            combined[i] = i < header.length ? header[i] : body[i - header.length];
-//        }
-
         messageBuffer.writeBytes(sendMessage.getBytes());
 
 //        StringBuilder builder = new StringBuilder();
@@ -39,6 +26,9 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
         ctx.writeAndFlush(messageBuffer);
     }
 
+    public void channelInactive(ChannelHandlerContext ctx) {
+        System.out.println("channel inactivate");
+    }
     // 채널을 읽을 때 동작할 코드를 정의 합니다.
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         System.out.println("in channelRead");
@@ -47,7 +37,7 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
 //		System.out.println(bytes);
         String readMessage = ((ByteBuf) msg).toString(Charset.defaultCharset());
 
-        System.out.println("수신한 문자열 [" + readMessage + ']');
+        System.out.println("Server got: [" + readMessage + ']');
         ctx.write(msg); // 메시지를 그대로 다시 write 합니다.
     }
 
