@@ -48,7 +48,6 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
 
         String[] CHComposition = {"Stx", "Version", "Len", "ApType", "SendingTime", "TRcode", "SeqNo", "DataCnt", "HeaderFiller"};
         Integer[] CHlength = {1, 4, 7, 6, 20, 4, 11, 3, 4};
-        Object[] Type = {};
 
         int num = 0;
         for (int i=0; i<CHComposition.length; i++) {
@@ -57,27 +56,7 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
             num += CHlength[i];
         }
 
-        StringBuilder builder = new StringBuilder();
-        builder.append("Server got: [");
-
-        for (String i: CHComposition) {
-            ByteBuf buf = InputValue.get(i);
-
-            if (i.equals("Stx") || i.equals("HeaderFiller")) {
-                for (int j = 0; j < buf.readableBytes(); j++) {
-                    int k = (int) buf.getByte(j);
-                    String str = valueOf(k);
-                    System.out.println(str);
-                    builder.append(str);
-                }
-            }
-            else {
-                builder.append(InputValue.get(i).toString(Charset.defaultCharset()));
-            }
-        }
-
-        builder.append("]");
-        System.out.println(builder.toString());
+        readMsg(CHComposition, InputValue, "Server got: [");
 
 
         ByteBuf TRcode = InputValue.get("TRcode");
@@ -85,15 +64,13 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
 
         System.out.println("60");
 
-        if (TRcode.hasArray()) {
-            if (Arrays.equals(TRcode.array(), "LINK".getBytes())) {
-                TRcode.clear();
-                TRcode.writeBytes("LIOK".getBytes());
-                InputValue.put("Stx", TRcode);
-            }
+        byte[] TRcodeArray = BytebufToArray(TRcode);
+        if (Arrays.equals(TRcodeArray, "LINK".getBytes())) {
+            TRcode.clear();
+            TRcode.writeBytes("LIOK".getBytes());
+            InputValue.put("TRcode", TRcode);
         }
 
-        System.out.println("80");
         SimpleDateFormat formatter = new SimpleDateFormat ( "yyyyMMddHHmmssSSSSSS", Locale.KOREA );
         String SendingTime = formatter.format(new Date());
         SendingTimeBuf.clear();
@@ -102,47 +79,12 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
 
         CommunicationHeader.clear();
 
-        System.out.println("90");
         for (String i: CHComposition) {
-            ByteBuf Bytebuf = InputValue.get(i);
-            CommunicationHeader.writeBytes(Bytebuf);
+            ByteBuf putBuf = InputValue.get(i);
+            CommunicationHeader.writeBytes(BytebufToArray(putBuf));
         }
 
-        System.out.println("100");
-
-//        for (ByteBuf i: InputValue.values()) {
-//            String j;
-//            int a = i.getInt(0);
-//
-//            if (a == 0x02) {
-//                j = Integer.toHexString(a);
-//            }
-//            else {
-//                j = i.toString(Charset.defaultCharset());
-//            }
-//            System.out.println(j);
-//        }
-        StringBuilder builder1 = new StringBuilder();
-        builder1.append("Server sent: [");
-
-        for (String i: CHComposition) {
-            ByteBuf buf1 = InputValue.get(i);
-
-            if (i.equals("Stx") || i.equals("HeaderFiller")) {
-                for (int j = 0; j < buf1.readableBytes(); j++) {
-                    int k = (int) buf1.getByte(j);
-                    String str = valueOf(k);
-                    System.out.println(str);
-                    builder1.append(str);
-                }
-            }
-            else {
-                builder1.append(InputValue.get(i).toString(Charset.defaultCharset()));
-            }
-        }
-
-        builder1.append("]");
-        System.out.println(builder1.toString());
+        readMsg(CHComposition, InputValue, "Server sent: [");
 
         ctx.write(CommunicationHeader);
         ctx.write(DataHeader);
@@ -164,4 +106,36 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
         cause.printStackTrace(); // 쌓여있는 트레이스를 출력합니다.
         ctx.close(); // 컨텍스트를 종료시킵니다.
     }
+
+    public byte[] BytebufToArray(ByteBuf a) {
+        int len = a.readableBytes();
+        byte[] byteArray = new byte[len];
+        a.getBytes(a.readerIndex(), byteArray);
+
+        return byteArray;
+    }
+
+    private void readMsg(String[] component, HashMap<String, ByteBuf> componentMap, String addMsg) {
+        StringBuilder builder1 = new StringBuilder();
+        builder1.append(addMsg);
+
+        for (String i: component) {
+            ByteBuf buf1 = componentMap.get(i);
+
+            if (i.equals("Stx") || i.equals("HeaderFiller")) {
+                for (int j = 0; j < buf1.readableBytes(); j++) {
+                    int k = (int) buf1.getByte(j);
+                    String str = valueOf(k);
+                    builder1.append(str);
+                }
+            }
+            else {
+                builder1.append(buf1.toString(Charset.defaultCharset()));
+            }
+        }
+
+        builder1.append("]");
+        System.out.println(builder1.toString());
+    }
+
 }
