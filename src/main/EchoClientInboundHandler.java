@@ -14,6 +14,8 @@ import static java.lang.String.valueOf;
 
 public class EchoClientInboundHandler extends ChannelInboundHandlerAdapter {
 
+    CommonCode a = new CommonCode();
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         System.out.println("in channelActive");
@@ -37,7 +39,7 @@ public class EchoClientInboundHandler extends ChannelInboundHandlerAdapter {
             InputValue.put(CHComposition[i], slice);
             num += CHlength[i];
         }
-        readMsg(CHComposition, InputValue, "Client got: [");
+        a.readMessage(CHComposition, InputValue, "Client got: [");
         // difference btw input and output value('0000') is because of filler print
     }
 
@@ -64,28 +66,6 @@ public class EchoClientInboundHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(final ChannelHandlerContext ctx) throws Exception {
         System.out.println("in channelInactive");
-    }
-
-    private void readMsg(String[] component, HashMap<String, ByteBuf> componentMap, String addMsg) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(addMsg);
-
-        for (String i : component) {
-            ByteBuf buf = componentMap.get(i);
-
-            if (i.equals("Stx") || i.equals("HeaderFiller")) {
-                for (int j = 0; j < buf.readableBytes(); j++) {
-                    int k = (int) buf.getByte(j);
-                    String str = valueOf(k);
-                    builder.append(str);
-                }
-            } else {
-                builder.append(buf.toString(Charset.defaultCharset()));
-            }
-        }
-
-        builder.append("]");
-        System.out.println(builder.toString());
     }
 
     private void sendLINKMessage(ChannelHandlerContext ctx) {
@@ -136,21 +116,5 @@ public class EchoClientInboundHandler extends ChannelInboundHandlerAdapter {
         ctx.write(DataBody);
         ctx.writeAndFlush(Filler);
     }
-
-//    private void closeClearly(ChannelHandlerContext ctx) {
-//        final Channel ch = ctx.channel();
-//        EchoClient client = new EchoClient();
-//        ChannelFuture future = ch.close();
-//
-//        ch.disconnect();
-//        future.awaitUninterruptibly();
-//
-//        if(ch.close().isDone()) {
-//            System.out.println("Closing channel…done");
-//            if(ch.close().isSuccess()) {
-//                System.out.println("Closing channel…success");
-//            }
-//        }
-//    }
 
 }

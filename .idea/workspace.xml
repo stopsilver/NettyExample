@@ -2,25 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75351ed9-cbf6-4880-bb92-68acf819d794" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/EchoClinetHandler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/EchoServerHandler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/EchoClinetHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/EchoServerHandler.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/EchoClient$1.class" afterPath="$PROJECT_DIR$/bin/EchoClient$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/EchoClient.class" afterPath="$PROJECT_DIR$/bin/EchoClient.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/CommonCode.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/EchoClientInboundHandler.class" afterPath="$PROJECT_DIR$/bin/EchoClientInboundHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/EchoClientOutboundHandler.class" afterPath="$PROJECT_DIR$/bin/EchoClientOutboundHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/EchoServer$1.class" afterPath="$PROJECT_DIR$/bin/EchoServer$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/EchoServer.class" afterPath="$PROJECT_DIR$/bin/EchoServer.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/EchoServerInboundHandler.class" afterPath="$PROJECT_DIR$/bin/EchoServerInboundHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/EchoServerOutboundHandler.class" afterPath="$PROJECT_DIR$/bin/EchoServerOutboundHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/sendPoll.class" afterPath="$PROJECT_DIR$/bin/sendPoll.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/EchoClient.java" afterPath="$PROJECT_DIR$/src/main/EchoClient.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/EchoClientInboundHandler.java" afterPath="$PROJECT_DIR$/src/main/EchoClientInboundHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/EchoClientOutboundHandler.java" afterPath="$PROJECT_DIR$/src/main/EchoClientOutboundHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/EchoServer.java" afterPath="$PROJECT_DIR$/src/main/EchoServer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/EchoServerInboundHandler.java" afterPath="$PROJECT_DIR$/src/main/EchoServerInboundHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/EchoServerOutboundHandler.java" afterPath="$PROJECT_DIR$/src/main/EchoServerOutboundHandler.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,11 +35,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="EchoServer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EchoServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/EchoServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" column="15" lean-forward="true" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
+            <state relative-caret-position="555">
+              <caret line="37" column="1" lean-forward="true" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#707#960#0" expanded="true" />
@@ -74,8 +62,8 @@
       <file leaf-file-name="EchoServerInboundHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/EchoServerInboundHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+            <state relative-caret-position="265">
+              <caret line="48" column="15" lean-forward="false" selection-start-line="48" selection-start-column="15" selection-end-line="48" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,7 +74,7 @@
       <file leaf-file-name="EchoClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/EchoClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-53">
+            <state relative-caret-position="228">
               <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -97,11 +85,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EchoClientInboundHandler.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="EchoClientInboundHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/EchoClientInboundHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="222">
+              <caret line="42" column="40" lean-forward="false" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommonCode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/CommonCode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -138,6 +138,9 @@
       <find>in tr</find>
       <find>in if</find>
       <find>readmsg</find>
+      <find>send</find>
+      <find>readMessage</find>
+      <find>readM</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -154,12 +157,13 @@
         <option value="$PROJECT_DIR$/src/main/EchoClinetHandler.java" />
         <option value="$PROJECT_DIR$/src/main/EchoServerHandler.java" />
         <option value="$PROJECT_DIR$/src/main/EchoServerOutboundHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/EchoServer.java" />
         <option value="$PROJECT_DIR$/src/main/DisconnectionHandler.java" />
         <option value="$PROJECT_DIR$/src/main/EchoClientOutboundHandler.java" />
         <option value="$PROJECT_DIR$/src/main/EchoClient.java" />
-        <option value="$PROJECT_DIR$/src/main/EchoClientInboundHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/EchoServer.java" />
         <option value="$PROJECT_DIR$/src/main/EchoServerInboundHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/CommonCode.java" />
+        <option value="$PROJECT_DIR$/src/main/EchoClientInboundHandler.java" />
       </list>
     </option>
   </component>
@@ -729,12 +733,12 @@
       <workItem from="1482482098632" duration="67000" />
       <workItem from="1482482168540" duration="35071000" />
       <workItem from="1483348137563" duration="90722000" />
-      <workItem from="1484033115313" duration="1962000" />
+      <workItem from="1484033115313" duration="2841000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127822000" />
+    <option name="totallyTimeSpent" value="128701000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -747,7 +751,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1440" y="0" width="1920" height="1080" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -758,7 +762,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19860972" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30983117" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30983117" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -972,6 +976,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="259">
           <caret line="1272" column="28" lean-forward="false" selection-start-line="1272" selection-start-column="28" selection-end-line="1272" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1001,19 +1006,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/EchoClientInboundHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/EchoClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-53">
+        <state relative-caret-position="228">
           <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1023,12 +1018,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/EchoServerInboundHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/main/EchoServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        <state relative-caret-position="555">
+          <caret line="37" column="1" lean-forward="true" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#707#960#0" expanded="true" />
+            <element signature="e#959#960#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1041,14 +1038,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/EchoServer.java">
+    <entry file="file://$PROJECT_DIR$/src/main/EchoServerInboundHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="15" lean-forward="true" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
+        <state relative-caret-position="265">
+          <caret line="48" column="15" lean-forward="false" selection-start-line="48" selection-start-column="15" selection-end-line="48" selection-end-column="15" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#707#960#0" expanded="true" />
-            <element signature="e#959#960#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/CommonCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/EchoClientInboundHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="42" column="40" lean-forward="false" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

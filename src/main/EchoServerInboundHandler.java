@@ -11,6 +11,8 @@ import static java.lang.String.valueOf;
 
 public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
 
+    CommonCode a = new CommonCode();
+
     public void channelActive(ChannelHandlerContext ctx) {
         Integer timeGap = 1000;
 
@@ -44,7 +46,7 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
             num += CHlength[i];
         }
 
-        readMessage(CHComposition, InputValue, "Server got: [");
+        a.readMessage(CHComposition, InputValue, "Server got: [");
 
 
         ByteBuf TRcode = InputValue.get("TRcode");
@@ -72,7 +74,7 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
             CommunicationHeader.writeBytes(BytebufToArray(putBuf));
         }
 
-        readMessage(CHComposition, InputValue, "Server sent: [");
+        a.readMessage(CHComposition, InputValue, "Server sent: [");
 
         ctx.write(CommunicationHeader);
         ctx.write(DataHeader);
@@ -100,29 +102,6 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
         a.getBytes(a.readerIndex(), byteArray);
 
         return byteArray;
-    }
-
-    private void readMessage(String[] component, HashMap<String, ByteBuf> componentMap, String addMsg) {
-        StringBuilder builder1 = new StringBuilder();
-        builder1.append(addMsg);
-
-        for (String i: component) {
-            ByteBuf buf1 = componentMap.get(i);
-
-            if (i.equals("Stx") || i.equals("HeaderFiller")) {
-                for (int j = 0; j < buf1.readableBytes(); j++) {
-                    int k = (int) buf1.getByte(j);
-                    String str = valueOf(k);
-                    builder1.append(str);
-                }
-            }
-            else {
-                builder1.append(buf1.toString(Charset.defaultCharset()));
-            }
-        }
-
-        builder1.append("]");
-        System.out.println(builder1.toString());
     }
 }
 
