@@ -6,35 +6,31 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.timeout.ReadTimeoutHandler;
 
-import java.nio.ByteOrder;
-
-public final class EchoClient {	
+public final class EchoClient {
+	public static Bootstrap b = new Bootstrap();
 	public static void main(String[] args) throws Exception {
 		EventLoopGroup group = new NioEventLoopGroup();
 		
 		try {
-			Bootstrap b = new Bootstrap();
 			b.group(group)
 			.channel(NioSocketChannel.class)
 			.handler(new ChannelInitializer<SocketChannel>() {
 				public void initChannel(SocketChannel ch) throws Exception {
 					ChannelPipeline p = ch.pipeline();
-//					p.addLast(new LengthFieldBasedFrameDecoder(16, 0, 2, 0, 6));
-//					p.addLast("lengthFieldBasedFrameDecoder",
+					System.out.println("in try");
 					p.addLast(new EchoClientOutboundHandler());
 					p.addLast(new EchoClientInboundHandler());
-//							new LengthFieldBasedFrameDecoder(ByteOrder.LITTLE_ENDIAN, Integer.MAX_VALUE, 9, 9, 0, 9, true));
-//					p.addLast("lengthFieldBasedFrameDecoder",
-//							new LengthFieldBasedFrameDecoder(ByteOrder.LITTLE_ENDIAN, 30, 9, 9, 0, 9, true));
-
+					p.addFirst(new ReadTimeoutHandler(10));
 				}
 			});
-			
+
 			ChannelFuture f = b.connect("localhost", 8888).sync();
 			f.channel().closeFuture().sync();
-			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		finally {

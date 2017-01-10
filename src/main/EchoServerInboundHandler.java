@@ -11,29 +11,17 @@ import static java.lang.String.valueOf;
 
 public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
 
-    public void channelRead0(ChannelHandlerContext ctx, Object msg) {
-        System.out.println("in channelRead0");
-    }
-
     public void channelActive(ChannelHandlerContext ctx) {
-//        String sendMessage = "You are connected to Server";
-//
-//        ByteBuf messageBuffer = Unpooled.buffer();
-//
-//        messageBuffer.writeBytes(sendMessage.getBytes());
-//
-////        StringBuilder builder = new StringBuilder();
-////        builder.append("전송한 문자열 [");
-////        builder.append(sendMessage);
-////        builder.append("]");
-////        System.out.println(builder.toString());
-//        ctx.writeAndFlush(messageBuffer);
+        Integer timeGap = 1000;
+
+        Timer t = new Timer(true);
+        t.schedule(new sendPoll(ctx), 0, timeGap);
     }
 
     public void channelInactive(ChannelHandlerContext ctx) {
         System.out.println("channel inactivate");
     }
-    // 채널을 읽을 때 동작할 코드를 정의 합니다.
+
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         System.out.println("in channelRead");
 
@@ -56,7 +44,7 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
             num += CHlength[i];
         }
 
-        readMsg(CHComposition, InputValue, "Server got: [");
+        readMessage(CHComposition, InputValue, "Server got: [");
 
 
         ByteBuf TRcode = InputValue.get("TRcode");
@@ -84,7 +72,7 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
             CommunicationHeader.writeBytes(BytebufToArray(putBuf));
         }
 
-        readMsg(CHComposition, InputValue, "Server sent: [");
+        readMessage(CHComposition, InputValue, "Server sent: [");
 
         ctx.write(CommunicationHeader);
         ctx.write(DataHeader);
@@ -92,19 +80,18 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
         ctx.writeAndFlush(Filler);
     }
 
-    // 채널 읽는 것을 완료했을 때 동작할 코드를 정의 합니다.
+
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         System.out.println("channelReadComplete");
-        ctx.flush(); // 컨텍스트의 내용을 플러쉬합니다.
+        ctx.flush();
     }
 
-    // 예외가 발생할 때 동작할 코드를 정의 합니다.
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
             throws Exception {
         System.out.println("in exceptionCaught");
-        cause.printStackTrace(); // 쌓여있는 트레이스를 출력합니다.
-        ctx.close(); // 컨텍스트를 종료시킵니다.
+        cause.printStackTrace();
+        ctx.close();
     }
 
     public byte[] BytebufToArray(ByteBuf a) {
@@ -115,7 +102,7 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
         return byteArray;
     }
 
-    private void readMsg(String[] component, HashMap<String, ByteBuf> componentMap, String addMsg) {
+    private void readMessage(String[] component, HashMap<String, ByteBuf> componentMap, String addMsg) {
         StringBuilder builder1 = new StringBuilder();
         builder1.append(addMsg);
 
@@ -137,5 +124,62 @@ public class EchoServerInboundHandler extends ChannelInboundHandlerAdapter {
         builder1.append("]");
         System.out.println(builder1.toString());
     }
+}
 
+
+class sendPoll extends TimerTask {
+    private ChannelHandlerContext ctx;
+
+    public sendPoll(ChannelHandlerContext ctx) {
+        this.ctx = ctx;
+    }
+
+    public void run() {
+        ByteBuf CommunicationHeader = Unpooled.buffer(60);
+        ByteBuf DataHeader = Unpooled.buffer(100);
+        ByteBuf DataBody = Unpooled.buffer(300);
+        ByteBuf Filler = Unpooled.buffer(100);
+
+        DataHeader.setZero(0, DataHeader.writableBytes());
+        DataBody.setZero(0, DataBody.writableBytes());
+        Filler.setZero(0, Filler.writableBytes());
+
+        byte[] Stx = {0x02};
+        String Version = "v1.0";
+        String MsgLen = "0000160";
+        String ApType = "C115TR";
+
+        SimpleDateFormat formatter = new SimpleDateFormat ( "yyyyMMddHHmmssSSSSSS", Locale.KOREA );
+        String SendingTime = formatter.format(new Date());
+
+        String Trcode = "POLL";
+
+        String SeqNo = "00000000000";
+        String DataCnt = "000";
+
+
+        CommunicationHeader.writeBytes(Stx);
+        CommunicationHeader.writeBytes(Version.getBytes());
+        CommunicationHeader.writeBytes(MsgLen.getBytes());
+        CommunicationHeader.writeBytes(ApType.getBytes());
+        CommunicationHeader.writeBytes(SendingTime.getBytes());
+        CommunicationHeader.writeBytes(Trcode.getBytes());
+        CommunicationHeader.writeBytes(SeqNo.getBytes());
+        CommunicationHeader.writeBytes(DataCnt.getBytes());
+
+        CommunicationHeader.setZero(CommunicationHeader.readableBytes(), CommunicationHeader.capacity() - CommunicationHeader.readableBytes());
+        System.out.println(CommunicationHeader.toString(Charset.defaultCharset()));
+
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("Client sent: [");
+        String StxString = Integer.toHexString(Stx[0]);
+        builder.append(StxString + Version + MsgLen + ApType + SendingTime + Trcode + SeqNo + DataCnt);
+        builder.append("]");
+        System.out.println(builder.toString());
+        ctx.write(CommunicationHeader);
+        ctx.write(DataHeader);
+        ctx.write(DataBody);
+        ctx.writeAndFlush(Filler);
+    }
 }
